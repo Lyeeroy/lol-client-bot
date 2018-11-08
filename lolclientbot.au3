@@ -11,7 +11,7 @@
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
 
-$Form1 = GUICreate("Form1", 330, 221, 374, 213)
+$Form1 = GUICreate("lolClientBot", 330, 221, 374, 213)
 $Tab1 = GUICtrlCreateTab(0, 0, 305, 193)
 $TabSheet1 = GUICtrlCreateTabItem("General")
 GUICtrlSetState(-1, $GUI_SHOW)
@@ -76,10 +76,6 @@ Func _main()
 					Global $champ2 = GUICtrlRead($cham2)
 					Global $champ3 = GUICtrlRead($cham3)
 
-					Global $pick = 1
-					Global $say = 1
-					Global $auto = 1
-
 					If _IsChecked($sayCheck) Then
 						If $comb = '' Then
 							MsgBox(0, 'Error:' & @ScriptName, 'Choose role')
@@ -89,6 +85,7 @@ Func _main()
 							MsgBox(0, 'Error:' & @ScriptName, 'Delay > 10 or 0 sec')
 						Else
 							$LoopEx += 1
+							$say = 1
 						EndIf
 					EndIf
 					If _IsChecked($pickCheck) Then
@@ -96,10 +93,12 @@ Func _main()
 							MsgBox(0, 'Error:' & @ScriptName, 'Choose at least first champion')
 						Else
 							$LoopEx += 1
+							$pick = 1
 						EndIf
 					EndIf
 					If _IsChecked($autoCheck) Then
 						$LoopEx += 1
+						$auto = 1
 					EndIf
 
 				Case $Stop
@@ -222,11 +221,3 @@ EndFunc   ;==>_main
 Func _IsChecked($idControlID)
 	Return BitAND(GUICtrlRead($idControlID), $GUI_CHECKED) = $GUI_CHECKED
 EndFunc   ;==>_IsChecked
-
-
-
-
-
-
-
-
