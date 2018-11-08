@@ -56,8 +56,6 @@ Global $x = 0
 Global $dot = 0
 Global $LoopEx = 0
 
-HotKeySet('{F1}', '_main')
-
 _main()
 
 Func _main()
