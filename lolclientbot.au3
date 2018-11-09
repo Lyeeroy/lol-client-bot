@@ -66,39 +66,39 @@ Func _main()
 				Case $GUI_EVENT_CLOSE
 					Exit
 				Case $Start
-					Global $combo = GUICtrlRead($comb)
-					Global $SEC = GUICtrlRead($SE)
-					Global $amount = GUICtrlRead($amoun)
-					Global $comb = GUICtrlRead($co)
-					Global $champ1 = GUICtrlRead($cham1)
-					Global $champ2 = GUICtrlRead($cham2)
-					Global $champ3 = GUICtrlRead($cham3)
-
-					If _IsChecked($sayCheck) Then
-						If $comb = '' Then
-							MsgBox(0, 'Error:' & @ScriptName, 'Choose role')
-						ElseIf $amount > 15 Or $amount = 0 Then
-							MsgBox(0, 'Error' & @ScriptName, 'Amount > 15 Or 0')
-						ElseIf $SEC > 10000 Or $SEC = 0 Then
-							MsgBox(0, 'Error:' & @ScriptName, 'Delay > 10 or 0 sec')
-						Else
+					If $LoopEx = 0 Then
+						Global $combo = GUICtrlRead($comb)
+						Global $SEC = GUICtrlRead($SE)
+						Global $amount = GUICtrlRead($amoun)
+						Global $comb = GUICtrlRead($co)
+						Global $champ1 = GUICtrlRead($cham1)
+						Global $champ2 = GUICtrlRead($cham2)
+						Global $champ3 = GUICtrlRead($cham3)
+						If _IsChecked($sayCheck) Then
+							If $comb = '' Then
+								MsgBox(0, 'Error:' & @ScriptName, 'Choose role')
+							ElseIf $amount > 15 Or $amount = 0 Then
+								MsgBox(0, 'Error' & @ScriptName, 'Amount > 15 Or 0')
+							ElseIf $SEC > 10000 Or $SEC = 0 Then
+								MsgBox(0, 'Error:' & @ScriptName, 'Delay > 10 or 0 sec')
+							Else
+								$LoopEx += 1
+								$say = 1
+							EndIf
+						EndIf
+						If _IsChecked($pickCheck) Then
+							If $champ1 = '' Then
+								MsgBox(0, 'Error:' & @ScriptName, 'Choose at least first champion')
+							Else
+								$LoopEx += 1
+								$pick = 1
+							EndIf
+						EndIf
+						If _IsChecked($autoCheck) Then
 							$LoopEx += 1
-							$say = 1
+							$auto = 1
 						EndIf
 					EndIf
-					If _IsChecked($pickCheck) Then
-						If $champ1 = '' Then
-							MsgBox(0, 'Error:' & @ScriptName, 'Choose at least first champion')
-						Else
-							$LoopEx += 1
-							$pick = 1
-						EndIf
-					EndIf
-					If _IsChecked($autoCheck) Then
-						$LoopEx += 1
-						$auto = 1
-					EndIf
-
 				Case $Stop
 					$LoopEx = 0
 			EndSwitch
@@ -133,7 +133,7 @@ Func _main()
 			If $LoopEx >= 1 Then
 				ExitLoop
 			EndIf
-
+			ConsoleWrite($LoopEx & ' ---- ')
 		WEnd
 		ConsoleWrite($LoopEx & ' ---- ')
 		If _IsChecked($autoCheck) And $auto = 1 Then
@@ -154,10 +154,10 @@ Func _main()
 					Until $loop = 120 Or $lobby = 0xC3A15D ;Lobby
 					If $loop = 120 Then
 						$auto = 1
+						$LoopEx += 1
 					EndIf
 				EndIf
 			EndIf
-
 		ElseIf _IsChecked($sayCheck) And $say = 1 Then
 			If ProcessExists('LeagueClient.exe') And WinActive('League of Legends') Then
 				$GP = WinGetPos('League of Legends')
@@ -177,7 +177,6 @@ Func _main()
 				EndIf
 				Global $x = 0
 			EndIf
-
 		ElseIf _IsChecked($pickCheck) And $pick = 1 Then
 			$GP = WinGetPos('League of Legends')
 			$lobby = PixelGetColor($GP[0] + 676, $GP[1] + 92) ;Lobby 0xC3A15D
