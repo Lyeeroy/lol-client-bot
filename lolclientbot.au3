@@ -76,11 +76,11 @@ Func _main()
 						Global $champ3 = GUICtrlRead($cham3)
 						If _IsChecked($sayCheck) Then
 							If $comb = '' Then
-								MsgBox(0, 'Error:' & @ScriptName, 'Choose role')
+								MsgBox(0, 'Error: ' & @ScriptName, 'Choose role')
 							ElseIf $amount > 15 Or $amount = 0 Then
-								MsgBox(0, 'Error' & @ScriptName, 'Amount > 15 Or 0')
+								MsgBox(0, 'Error: ' & @ScriptName, 'Amount > 15 Or 0')
 							ElseIf $SEC > 10000 Or $SEC = 0 Then
-								MsgBox(0, 'Error:' & @ScriptName, 'Delay > 10 or 0 sec')
+								MsgBox(0, 'Error: ' & @ScriptName, 'Delay > 10 or 0 sec')
 							Else
 								$LoopEx += 1
 								$say = 1
@@ -88,7 +88,7 @@ Func _main()
 						EndIf
 						If _IsChecked($pickCheck) Then
 							If $champ1 = '' Then
-								MsgBox(0, 'Error:' & @ScriptName, 'Choose at least first champion')
+								MsgBox(0, 'Error: ' & @ScriptName, 'Choose at least first champion')
 							Else
 								$LoopEx += 1
 								$pick = 1
